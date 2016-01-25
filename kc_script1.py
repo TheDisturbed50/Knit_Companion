@@ -1,4 +1,4 @@
-# rev 0.1 alpha
+# rev 0.01 alpha
 # Python Build 3.5.1
 # Author: Thomas Calhoun    john.fullmetaljacket@gmail.com
 
