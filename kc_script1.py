@@ -25,6 +25,7 @@ while CurRepeats < TotalRepeats:
         CurRows += 1
         if CurRows == TotalRows:
             CurRepeats += 1
+<<<<<<< HEAD
             CurRows = 0
             print(">>>Good Work! Next Row!\n\n")
             if CurRepeats == TotalRepeats:
@@ -36,3 +37,13 @@ while CurRepeats < TotalRepeats:
             continue
     else:
         continue
+=======
+            mButton2.config(text = CurRepeats)
+        mButton1 = Button(text = CurRows, command = aClick, fg = "black", bg = "white")
+        mButton1.place(x=280, y=22)
+        mButton2 = Button(text = CurRepeats, command = bClick, fg = "black", bg = "white")
+        mButton2.place(x=280, y=48)
+
+app = Window(root)
+root.mainloop()
+>>>>>>> origin/master
