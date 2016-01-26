@@ -1,18 +1,18 @@
-# rev 0.02 alpha
+# rev 0.1 beta
 # Python Build 3.5.1
 # Author: Thomas Calhoun    john.fullmetaljacket@gmail.com
 
 print('''Welcome to "TheDisturbed50\'s Knit Companion"!
 
-You are in the Command-Prompt edition, ver. 0.02alpha
+You are in the Command-Prompt edition, ver. 0.1beta
 
-Please follow the prompts and bear with me on the user
-input requirements as I work on possible workarounds.
+Please follow the prompts, from there it is as simple as
+pressing "Enter" for each completed row.
 
-   Thank you!
-      ~Thomas Calhoun \n''')
+   Enjoy!
+      ~Thomas Calhoun \n\n''')
 
-print("        ***Patern Input***")
+print("        ***Patern Input***\n")
 print('''Please note: if your pattern increases rows,
  break down the input into "Phases" as you complete it.\n''')
 TotalRows = int(input("Enter the total number of rows     -->"))
@@ -24,15 +24,15 @@ TotalRepeatComp = TotalRepeats+1
 
 while CurRepeats < TotalRepeatComp:
     print("...Currently %d of %d Rows" % (CurRows,TotalRows))
-    print("...Currently %d of %d Repeats" % (CurRepeats,TotalRepeats))
-    if int(input("Enter any number, then press Enter for Row Complete...\n")) < 10:
+    print("...Currently %d of %d Repeats\n" % (CurRepeats,TotalRepeats))
+    if input("Press Enter for Row Complete...\n") in [""]:
         CurRows += 1
         if CurRows == TotalRowComp:
             CurRepeats += 1
             CurRows = 0
-            print(">>>Good Work! Next Row!\n\n")
+            print("   Good Work! Next Row!\n\n")
             if CurRepeats == TotalRepeatComp:
-                print("\n\n~*/Good Job! Pattern Complete!\\*~")
+                print("\n\n   Excellent! Pattern Complete!")
                 input("Press enter to exit...")
             else:
                 continue
