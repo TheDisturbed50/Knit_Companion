@@ -12,7 +12,7 @@ pressing "Enter" for each completed row.
    Enjoy!
       ~Thomas Calhoun \n\n''')
 
-print("        ***Patern Input***\n")
+print("        ***Pattern Input***\n")
 print('''Please note: if your pattern increases rows,
  break down the input into "Phases" as you complete it.\n''')
 TotalRows = int(input("Enter the total number of rows     -->"))
