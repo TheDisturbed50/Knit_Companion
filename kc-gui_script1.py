@@ -9,22 +9,20 @@ root = Tk()
 root.geometry("500x200")
 root.title("Knit Companion")
 
-class App(Frame):
-    def __init__(root, master):
-        Frame.__init__(root, master)
-        root.grid()
-        #root.create_widgets()
+ttlRow = IntVar()
+ttlRpt = IntVar()
+scRow = IntVar()
+scRow.set(0)
+scRpt = IntVar()
+scRpt.set(0)
 
+class App(Frame):
+    def __init__(self, master):
+        Frame.__init__(self, master)
+        self.grid()
     def exitPrompt(): #Messagebox verify to exit (from buttons)
         if tkmb.askokcancel(title="Close App", message="Please verify,\nWould you like to exit?"):
             root.destroy()
-
-    ttlRow = IntVar()
-    ttlRpt = IntVar()
-    scRow = IntVar()
-    scRow.set(0)
-    scRpt = IntVar()
-    scRpt.set(0)
 
     quitButton = Button(root, text="Exit", command=exitPrompt)
     quitButton.place(x=0, y=80)
@@ -36,30 +34,6 @@ class App(Frame):
     setCurRow.place(x=240, y=25)
     setCurRpt = Entry(root, width=4, fg="black", textvariable=scRpt)
     setCurRpt.place(x=240, y=50)
-
-    TotalRows = int(ttlRow.get())
-    TotalRepeats = int(ttlRpt.get())
-    CurRows = int(scRow.get())
-    CurRepeats = int(scRpt.get())
-
-    def on_trace_choice(self, name, index, mode):
-        self.refresh()
-
-    ttlRow.trace("w", on_trace_choice)
-    ttlRpt.trace("w", on_trace_choice)
-    scRow.trace("w", on_trace_choice)
-    scRpt.trace("w", on_trace_choice)
-
-    #TODO >debug the following conditional, it is causing the application to crash at the 'while' loop
-    def rowIteration(*args):
-        while root.TotalRepeats > root.CurRepeats:
-            if root.TotalRows < root.CurRows:
-                root.CurRepeats += 1
-                root.scRow.set(0)
-                if root.TotalRepeats < root.CurRepeats:
-                    if tkmb.askokcancel(title="Close App", message="Pattern Complete\nWould you like to exit?"):
-                        root.destroy()
-
     TotRowLab = Label(root, text='Please enter the total # of Rows')
     TotRowLab.place(x=0, y=25)
     TotRptLab = Label(root, text='Please enter the total # of Repeats')
@@ -78,22 +52,36 @@ class App(Frame):
     curRptPrint.place(x=300, y=50)
     setLabel = Label(root, fg='blue', text='(SET)')
     setLabel.place(x=233, y=0)
-
-
-    def readyClick(*args):
-        CurRows += 1
-        rowIteration()
-        readyButton.config(text=root.CurRows)
-
-    readyButton = Button(text='Click below when ready!', command=readyClick, fg='black')
+    def run(root):
+        root.mainloop()
+    TotalRows = int(ttlRow.get())
+    TotalRepeats = int(ttlRpt.get())
+    CurRows = int(scRow.get())
+    CurRepeats = int(scRpt.get())
+    def traceCallback(*args):
+        print("traceCallback")
+    ttlRow.trace("w", traceCallback)
+    ttlRpt.trace("w", traceCallback)
+    scRow.trace("w", traceCallback)
+    scRpt.trace("w", traceCallback)
+    def rowIteration(self):
+        if self.TotalRepeats > self.CurRepeats:
+            if self.TotalRows < self.CurRows:
+                self.CurRepeats += 1
+                scRow.set(0)
+                if self.TotalRepeats < self.CurRepeats:
+                    if tkmb.askokcancel(title="Close App", message="Pattern Complete\nWould you like to exit?"):
+                        root.destroy()
+    def readyClick(*args): #STILL BROKEN
+        CurRows += 1 #BRK
+        rowIteration() #BRK
+    click = readyClick
+    readyButton = Button(text=CurRows, command=click, fg='black')
     readyButton.place(x=180, y=100)
     readySpace = Entry(text="Click here to begin")
     readySpace.place(x=180, y=130)
 
-    def run(root):
-        root.mainloop()
-
-    root.bind("<space>", readyClick())
+root.bind("<space>", App.click)
 
 app = App(root)
 app.run()
